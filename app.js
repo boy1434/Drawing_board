@@ -1,3 +1,4 @@
+const saveBtn = document.getElementById("save");
 const textInput = document.getElementById("text");
 const fileInput = document.getElementById("file");
 const modeBtn = document.getElementById("mode-btn");
@@ -84,11 +85,24 @@ function onFileChange(event){
     }
 }
 function onDobleClick(event){
-    const text = textInput.value;
+    if(text === ""){
+        const text = textInput.value;
+    ctx.save();
     ctx.lineWidth = 1;
+    ctx.font = "48px serif";
     ctx.strokeText(text, event.offsetX, event.offsetY);
     ctx.restore()
+    }
 }
+
+function onSaveClick() {
+    const url = canvas.toDataURL();
+    const a = document.createElement("a");
+    a.href = url
+    a.download = "myDrawing,png";
+    a.click();
+}
+
 
 
 canvas.addEventListener("dblclick", onDobleClick);
@@ -108,3 +122,4 @@ destroyBtn.addEventListener("click", onDestroyClick);
 eraserBtn.addEventListener("click", onEraserClick);
 
 fileInput.addEventListener("change", onFileChange);
+saveBtn.addEventListener("click", onSaveClick);
