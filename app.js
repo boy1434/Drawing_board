@@ -1,3 +1,4 @@
+const textInput = document.getElementById("text");
 const fileInput = document.getElementById("file");
 const modeBtn = document.getElementById("mode-btn");
 const destroyBtn = document.getElementById("destroy-btn");
@@ -79,11 +80,18 @@ function onFileChange(event){
     const image = new Image() // = <img src""/>
     image.src = url;
     image.onload = function() {
-        ctx.drawImage(image, 200, 200);
+        ctx.drawImage(image, 0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
     }
 }
+function onDobleClick(event){
+    const text = textInput.value;
+    ctx.lineWidth = 1;
+    ctx.strokeText(text, event.offsetX, event.offsetY);
+    ctx.restore()
+}
 
-canvas
+
+canvas.addEventListener("dblclick", onDobleClick);
 canvas.addEventListener("mousemove", onMove);
 canvas.addEventListener("mousedown", startPainting);
 canvas.addEventListener("mouseup", cancelPainting);
